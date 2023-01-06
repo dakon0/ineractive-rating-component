@@ -3,7 +3,7 @@
         <div class="star-icon-div">
             <img src="../images/icon-star.svg" alt="the image of star">
         </div>
-        <h1>How did we do?</h1>
+        <h2>How did we do?</h2>
         <p>Please let us know how we did with your support request. All feedback is appreciated 
            to help us improve our offering!</p>
         <!-- <form>
@@ -34,17 +34,15 @@
             </div>
         </form> -->
         <div class="marks">
-            <div class="mark one">1</div>
-            <div class="mark two">2</div>
-            <div class="mark three">3</div>
-            <div class="mark four">4</div>
-            <div class="mark five">5</div>
+            <div class="mark one" :class="{markChecked: markOneChecked}" @click="markOneClicked">1</div>
+            <div class="mark two" :class="{markChecked: markTwoChecked}" @click="markTwoClicked">2</div>
+            <div class="mark three" :class="{markChecked: markThreeChecked}" @click="markThreeClicked">3</div>
+            <div class="mark four" :class="{markChecked: markFourChecked}" @click="markFourClicked">4</div>
+            <div class="mark five" :class="{markChecked: markFiveChecked}" @click="markFiveClicked">5</div>
         </div>
 
         <div class="submit" @click="submitClicked">SUBMIT</div>
 
-
-        
     </div>
 </template>
 
@@ -53,24 +51,77 @@ export default {
     // name: 'mainComponent',
     methods: {
         submitClicked(){
-            console.log("submitClicked() called");
             this.$emit("main-component-submitted");
+        },
+        markOneClicked(){
+            this.$emit("mark-one-clicked");
+            this.markOneChecked = true;
+            this.markTwoChecked = false;
+            this.markThreeChecked = false;
+            this.markFourChecked = false;
+            this.markFiveChecked = false;
+        },
+        markTwoClicked(){
+            this.$emit("mark-two-clicked");
+            this.markOneChecked = false;
+            this.markTwoChecked = true;
+            this.markThreeChecked = false;
+            this.markFourChecked = false;
+            this.markFiveChecked = false;
+        },
+        markThreeClicked(){
+            this.$emit("mark-three-clicked");
+            this.markOneChecked = false;
+            this.markTwoChecked = false;
+            this.markThreeChecked = true;
+            this.markFourChecked = false;
+            this.markFiveChecked = false;
+        },
+        markFourClicked(){
+            this.$emit("mark-four-clicked");
+            this.markOneChecked = false;
+            this.markTwoChecked = false;
+            this.markThreeChecked = false;
+            this.markFourChecked = true;
+            this.markFiveChecked = false;
+        },
+        markFiveClicked(){
+            this.$emit("mark-five-clicked");
+            this.markOneChecked = false;
+            this.markTwoChecked = false;
+            this.markThreeChecked = false;
+            this.markFourChecked = false;
+            this.markFiveChecked = true;
         }
+    },
+    data() {
+        return{
+            markOneChecked: false,
+            markTwoChecked: false,
+            markThreeChecked: false,
+            markFourChecked: false,
+            markFiveChecked: false,
+        };
     }
 }
+
 </script>
 
 <style scoped>
     .main-component-div{
         border-radius: 20px;
-        padding: 20px;
-        background-color: hsl(213, 19%, 18%);
+        padding: 25px;
+        background-color: #1f2630;
+        box-sizing: border-box;
+        max-width: 390px;
+        height: 360px;
+        margin: auto;
     }
 
     .star-icon-div{
         /* border: solid; */
         border-radius: 30px;
-        background-color: hsl(216, 12%, 54%);
+        background-color: #262d37;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -82,6 +133,7 @@ export default {
         text-align: left;
         font-family: Overpass;
         color: hsl(0, 0%, 100%);
+        margin-bottom: 10px;
     }
 
     p{
@@ -90,6 +142,8 @@ export default {
         font-size: 15px;
         font-weight: 400;
         color: hsl(217, 12%, 63%);
+        margin-top: 10px;
+        margin-bottom: 20px;
     }
 
     /* .checkbox {
@@ -114,23 +168,30 @@ export default {
         justify-content: space-between;
     }
 
-    .mark{
+    .mark {
         border-radius: 30px;
-        /* padding-bottom: -1px; */
+        padding: 2px 1px 0px 1px;
         width: 45px;
         height: 45px;
         display: flex;
         justify-content: center;
         align-items: center;
-        background-color: hsl(216, 12%, 54%);
+        background-color: rgba(38,47,56,255);
         color: hsl(217, 12%, 63%);
         font-weight: 700;
+        line-height: 20px;
+
     }
 
     .mark:hover {
-        color: hsl(25, 97%, 53%);
-        background-color: hsl(0, 0%, 100%);
+        color: hsl(0, 0%, 100%);
+        background-color: #fb7614;
         cursor: pointer;
+    }
+
+    .markChecked{
+        background-color: hsl(216, 12%, 54%);
+        color: white;
     }
     
 
@@ -138,7 +199,7 @@ export default {
         margin-top: 20px;
         border-radius: 20px;
         color: hsl(0, 0%, 100%);
-        background-color: hsl(25, 97%, 53%);
+        background-color: #fb7614;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -147,7 +208,7 @@ export default {
     }
 
     .submit:hover {
-        color: hsl(25, 97%, 53%);
+        color: #fb7614;
         background-color: hsl(0, 0%, 100%);
         cursor: pointer;
     }
